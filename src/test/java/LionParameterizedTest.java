@@ -8,20 +8,20 @@ import org.mockito.Mockito;
 import java.util.Arrays;
 import java.util.Collection;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
 public class LionParameterizedTest {
 
     private final String sex;
-    private final boolean expectedMane;
+    private final boolean expectedHasMane;
 
-    public LionParameterizedTest(String sex, boolean expectedMane) {
+    public LionParameterizedTest(String sex, boolean expectedHasMane) {
         this.sex = sex;
-        this.expectedMane = expectedMane;
+        this.expectedHasMane = expectedHasMane;
     }
 
-    @Parameterized.Parameters
+    @Parameterized.Parameters(name = "Тестовые данные: {0} {1}")
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
                 {"Самец", true},
@@ -30,9 +30,9 @@ public class LionParameterizedTest {
     }
 
     @Test
-    public void doesHaveManeTest() throws Exception {
+    public void testDoesHaveMane() throws Exception {
         Feline felineMock = Mockito.mock(Feline.class);
         Lion lion = new Lion(sex, felineMock);
-        assertEquals(expectedMane, lion.doesHaveMane());
+        assertEquals(expectedHasMane, lion.doesHaveMane());
     }
 }
